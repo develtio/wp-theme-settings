@@ -1,0 +1,17 @@
+# IDE
+/.idea
+/.vscode
+
+# Composer
+/vendor
+
+# Dotenv
+.env
+
+# Hidden system files
+*.DS_Store
+*[Tt]humbs.db
+*.Trashes
+
+# Other
+*.log
