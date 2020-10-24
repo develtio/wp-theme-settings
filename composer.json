@@ -22,7 +22,6 @@
   "autoload": {
     "psr-4": {
       "Develtio\\WP\\ThemeSettings\\": "src/"
-    },
-    "files": ["src/helpers.php"]
+    }
   }
 }

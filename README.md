@@ -1,9 +1,14 @@
 # Develtio - Theme settings
 **Theme settings** boilerplate by develtio.com [develtio.com](https://develtio.com)
 
+### Requirements:
+
+* [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)
+* [ACF Builder](https://github.com/StoutLogic/acf-builder)
+* [Develtio - Loader](https://github.com/develtio/wp-loader)
+
 Structure
 ------------
-
 ```
 src
 ├── acf
@@ -23,21 +28,12 @@ src
 Examples - ACF
 ------------
 
-### Requirements:
-
-* [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)
-* [ACF Builder](https://github.com/StoutLogic/acf-builder)
-
-### Optional:
-* [Develtio - Loader](https://github.com/develtio/wp-loader)
-
-
 ### Register options
 
 `src/acf/options/theme.php`
 
 ```php
-namespace Develtio\WP\ThemeSettings\Options;
+namespace Develtio\WP\ThemeSettings;
 
 $parent = acf_add_options_page(
     [
@@ -64,7 +60,7 @@ acf_add_options_sub_page(
 `src/acf/options/news.php`
 
 ```php
-namespace Develtio\WP\ThemeSettings\Options;
+namespace Develtio\WP\ThemeSettings;
 
 acf_add_options_page(
     [
@@ -85,7 +81,7 @@ acf_add_options_page(
 `src/acf/components/header.php`
 
 ```php
-namespace Develtio\WP\ThemeSettings\Components;
+namespace Develtio\WP\ThemeSettings;
 
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
@@ -103,10 +99,9 @@ return $fields;
 `src/acf/fields/pages/template-home.php`
 
 ```php
-namespace Develtio\WP\ThemeSettings\Fields;
+namespace Develtio\WP\ThemeSettings;
 
 use StoutLogic\AcfBuilder\FieldsBuilder;
-use function Develtio\WP\ThemeSettings\getFieldPartial;
 
 $fields = new FieldsBuilder('template_home', ['title' => 'Template Home']);
 
@@ -115,28 +110,13 @@ $fields->setLocation('page_template', '==', 'views/template-home.blade.php');
 $fields
     ->addTab('header')
     ->addGroup('header')
-    ->addFields(getFieldPartial('components.header'))
+    ->addFields(Settings::getFieldPartial('components.header'))
     ->endGroup()
     ->addTab('cards')
     ->addText('cards_section_title')
     ->addRepeater('cards')
-    ->addFields(getFieldPartial('components.card'))
+    ->addFields(Settings::getFieldPartial('components.card'))
     ->endRepeater();
 
 return $fields;
-```
-
-### Load
-
-```php
-namespace Develtio\WP\ThemeSettings;
-
-use Develtio\WP\Loader\FieldsBuilderLoader;
-use Develtio\WP\Loader\GroupLoader;
-use Develtio\WP\Loader\SampleLoader;
-
-$gl = new GroupLoader();
-$gl->add(new SampleLoader(__DIR__ . '/acf/options/*.php'));
-$gl->add(new FieldsBuilderLoader(__DIR__ . '/acf/fields/**/*.php'));
-$gl->run();
 ```
