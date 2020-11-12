@@ -22,14 +22,17 @@ class Settings
     private function removeAcfDashboard(): void
     {
         add_filter('acf/settings/show_admin', '__return_false');
-        add_action('current_screen', function () {
-            $screen = get_current_screen();
+        add_action(
+            'current_screen',
+            function () {
+                $screen = get_current_screen();
 
-            if ($screen && $screen->post_type === 'acf-field-group') {
-                wp_redirect(admin_url());
-                exit();
+                if ($screen && $screen->post_type === 'acf-field-group') {
+                    wp_redirect(admin_url());
+                    exit();
+                }
             }
-        });
+        );
     }
 
     private function loadTypes(): void
@@ -44,7 +47,9 @@ class Settings
     {
         $gl = new GroupLoader();
         $gl->add(new SampleLoader(__DIR__ . '/acf/options/*.php'));
-        $gl->add(new FieldsBuilderLoader(__DIR__ . '/acf/fields/**/*.php'));
+        $gl->add(
+            new FieldsBuilderLoader(__DIR__ . '/acf/fields/{options,pages,post-types,taxonomies,other}/*.php')
+        );
         $gl->run();
     }
 
@@ -52,6 +57,6 @@ class Settings
     {
         $partial = str_replace('.', '/', $partial);
 
-        return include(__DIR__ . "/acf/{$partial}.php");
+        return include(__DIR__ . "/acf/fields/{$partial}.php");
     }
 }

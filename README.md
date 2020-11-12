@@ -1,6 +1,12 @@
 # Develtio - Theme settings
 **Theme settings** boilerplate by develtio.com [develtio.com](https://develtio.com)
 
+Installation
+------------
+```
+composer create-project develtio/wp-theme-settings
+```
+
 ### Requirements:
 
 * [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)
@@ -11,18 +17,18 @@ Structure
 ------------
 ```
 src
-├── acf
-│   ├── options         # register option page
-│   ├── components
-│   ├── partials
-│   └── fields
+├── acf                     # ACF - Settings
+│   ├── options             # Register options page
+│   └── fields              # Fields: FieldsBuilder
+│       ├── components      
+│       ├── partials
 │       ├── options
 │       ├── post-types
 │       ├── taxonomies
 │       ├── pages
 │       └── other
-├── post-types
-└── taxonomies
+├── post-types              # Register post-types
+└── taxonomies              # Register taxonomies
 ```
 
 Examples - ACF
@@ -119,4 +125,68 @@ $fields
     ->endRepeater();
 
 return $fields;
+```
+
+Examples - Types
+------------
+
+### Register post-types
+
+`src/post-types/blog.php`
+
+```php
+namespace Develtio\WP\ThemeSettings;
+
+$postTypeArgs = function () {
+    $labels = [
+        'name' => _x('Blog', 'post type general name', 'develtio'),
+        'singular_name' => _x('Blog', 'post type singular name', 'develtio'),
+    ];
+
+    $args = [
+        'labels' => $labels,
+        'public' => true,
+        'hierarchical' => false,
+        'exclude_from_search' => false,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_position' => 40,
+        'menu_icon' => 'dashicons-admin-post',
+        'supports' => ['title', 'editor', 'thumbnail'],
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'blog', 'with_front' => false],
+    ];
+
+    return $args;
+};
+
+register_post_type('blog', $postTypeArgs());
+```
+
+### Register taxonomies
+
+`src/taxonomies/blog.php`
+
+```php
+namespace Develtio\WP\ThemeSettings;
+
+$taxonomyArgs = function () {
+    $labels = [
+        'name' => _x('Blog categories', 'taxonomy general name', 'develtio'),
+        'singular_name' => _x('Blog category', 'taxonomy singular name', 'develtio'),
+    ];
+
+    $args = [
+        'labels' => $labels,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => false,
+    ];
+    return $args;
+};
+
+register_taxonomy('blog_cat', ['blog'], $taxonomyArgs());
 ```
