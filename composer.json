@@ -17,7 +17,8 @@
     }
   ],
   "require": {
-    "php": ">=7.2"
+    "php": ">=7.2",
+    "develtio/wp-loader": "^1.0.0"
   },
   "config": {
     "optimize-autoloader": true

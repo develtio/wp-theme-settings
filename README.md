@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="https://symfony.com" target="_blank">
+        <img height="80" src="https://raw.githubusercontent.com/develtio/assets/master/logo/logo.svg">
+    </a>
+</p>
+
 # Develtio - Theme settings
 **Theme settings** boilerplate by develtio.com [develtio.com](https://develtio.com)
 
@@ -6,12 +12,6 @@ Installation
 ```
 composer create-project develtio/wp-theme-settings
 ```
-
-### Requirements:
-
-* [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)
-* [ACF Builder](https://github.com/StoutLogic/acf-builder)
-* [Develtio - Loader](https://github.com/develtio/wp-loader)
 
 Structure
 ------------
@@ -33,6 +33,10 @@ src
 
 Examples - ACF
 ------------
+### Requirements:
+
+* [Advanced Custom Fields Pro](https://www.advancedcustomfields.com/pro/)
+* [ACF Builder](https://github.com/StoutLogic/acf-builder)
 
 ### Register options
 
