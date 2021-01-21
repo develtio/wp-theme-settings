@@ -8,12 +8,8 @@
   "authors": [
     {
       "name": "Develtio",
-      "homepage": "https://develtio.com"
-    },
-    {
-      "name": "Tomasz Rusiecki",
-      "email": "rusiecki.tom@gmail.com",
-      "homepage": "https://tomaszrusiecki.pl"
+      "homepage": "https://develtio.com",
+      "email": "info@develtio.com"
     }
   ],
   "require": {
